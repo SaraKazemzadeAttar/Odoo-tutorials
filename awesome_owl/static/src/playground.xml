@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+
 <templates xml:space="preserve">
 
   <t t-name="awesome_owl.playground">
@@ -6,8 +7,12 @@
           <h2>  hello world </h2>
         </div>
 
-	  <Counter/>
-	  <Counter/>
+      <Card title="'Card 1'" content="'This is the first card.'"/>
+      <Card title="'Card 2'" content="'This is the 2nd card.'"/>
+      <Card title="'Card 3'" content="'This is the 3rd card'"/>
+
+<!--	  <Counter/>-->
+<!--	  <Counter/>-->
 
   </t>
 </templates>
