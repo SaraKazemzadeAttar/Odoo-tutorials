@@ -8,20 +8,23 @@
 	<!--	  <Card title="'Card 3'" content="'This is the first card'"/>-->
 	<div class="p-3">
      <Card title="' TODO list'">
+
         <div>
-          <Card title="'Card A: '">
+	        <Card title="'Card A: '">
+		    <div>
+		       <input type="text" placeholder="Enter a new task" t-on-keyup="addTodo" class="form-control mb-3"/>
+	        </div>
             <t t-foreach="todos" t-as="todo" t-key="todo.id">
-	            <t t-if="todo.completed"/>
-              <TodoItem todo="todo" />
+              <TodoItem todo="todo"/>
             </t>
-<!--            <Counter onChange.bind="incrementSum" />-->
+		        <!--            <Counter onChange.bind="incrementSum" />-->
           </Card>
 
-<!--          <Card title="'Counter B: '">-->
-<!--            <Counter onChange.bind="incrementSum" />-->
-<!--          </Card>-->
+	        <!--          <Card title="'Counter B: '">-->
+	        <!--            <Counter onChange.bind="incrementSum" />-->
+	        <!--          </Card>-->
 
-<!--          <p>Total sum: <t t-esc="state.sum"/></p>-->
+	        <!--          <p>Total sum: <t t-esc="state.sum"/></p>-->
         </div>
       </Card>
 	</div>
