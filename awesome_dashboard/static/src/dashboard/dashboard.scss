@@ -1,0 +1,22 @@
+.o_dashboard {
+	background-color: gray;
+}
+
+.dashboard-item {
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+
+  &.size-1 {
+    width: 18rem;
+  }
+  &.size-2 {
+    width: 36rem;
+  }
+  &.size-3 {
+    width: 54rem;
+  }
+}
