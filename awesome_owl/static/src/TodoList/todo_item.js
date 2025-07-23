@@ -13,8 +13,12 @@ export class TodoItem extends Component {
 				typeof todo.isCompleted === "boolean"
 		},
 		toggleState: Function,
+		removeTodo: Function,
 };
 	onCheckboxChange(){
 		this.props.toggleState(this.props.todo.id);
+	}
+	onRemoveClick(){
+		this.props.removeTodo(this.props.todo.id);
 	}
 }
