@@ -11,7 +11,10 @@ export class TodoItem extends Component {
 				typeof todo.id === "number" &&
 				typeof todo.description === "string" &&
 				typeof todo.isCompleted === "boolean"
-		}
+		},
+		toggleState: Function,
+};
+	onCheckboxChange(){
+		this.props.toggleState(this.props.todo.id);
 	}
-
 }
