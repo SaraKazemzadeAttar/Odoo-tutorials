@@ -2,7 +2,8 @@
 
 import {Component, useState} from "@odoo/owl";
 import {Card} from "./card/card";
-import { useAutofocus } from "./utils";
+import {useAutofocus} from "./utils";
+
 const {markup, xml} = owl;
 import {Counter} from "./counter/counter";
 import {TodoItem} from "./TodoList/todo_item";
@@ -17,6 +18,8 @@ export class Playground extends Component {
 		this.idCounter = 1;
 		this.inputTodoRef = useAutofocus("inputTodo");
 	}
+
+
 
 	incrementSum() {
 		this.state.sum++;
@@ -40,6 +43,13 @@ export class Playground extends Component {
 		const todo = this.todos.find(t => t.id === todoId);
 		if (todo) {
 			todo.isCompleted = !todo.isCompleted;
+		}
+	}
+
+	removeTodo(todoId) {
+		const todo_index = this.todos.findIndex((t) => t.id === todoId);
+		if (todo_index >= 0) {
+			this.todos.splice(todo_index, 1);
 		}
 	}
 }
