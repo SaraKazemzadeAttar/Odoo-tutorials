@@ -8,7 +8,7 @@
 			          t-on-change="onCheckboxChange"
 	          />
 	    <span> <t t-esc="props.todo.id"/> - <t t-esc="props.todo.description"/></span>
-
+	    <span class="fa fa-remove text-danger ms-2" style="cursor:pointer;" t-on-click="onRemoveClick"/>
     </div>
   </t>
 </templates>
