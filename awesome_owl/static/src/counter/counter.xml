@@ -2,10 +2,10 @@
 <templates xml:space="preserve">
 
   <t t-name="awesome_owl.counter">
+	  <div class="d-flex flex-column">
 
 		  <span>Count: <t t-esc="state.value"/></span>
-		  <button style="background-color: mediumpurple" t-on-click="increment">Increment</button>
-
+		  <button class="btn btn-primary mt-2" style="background-color: mediumpurple" t-on-click="increment">Increment</button>
+	  </div>
   </t>
-
 </templates>
