@@ -1,10 +1,9 @@
 <templates xml:space="preserve">
     <t t-name="awesome_dashboard.AwesomeDashboard">
         <Layout className="'o_dashboard h-100'" display="{'controlPanel': {} }">
-
-	        <t t-slot="controlPanel">
+            <t t-set-slot="layout-buttons"> <!-- to put buttons on the layout -->
                 <button class="btn btn-primary" t-on-click="openCustomers">Customers</button>
-		        <button class="btn btn-secondary" t-on-click="openLeads">Leads</button>
+		        <button class="btn btn-primary" t-on-click="openLeads">Leads</button>
 	        </t>
 
 	        <t t-slot="default">
