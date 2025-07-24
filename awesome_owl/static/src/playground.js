@@ -2,7 +2,7 @@
 
 import {Component, useState} from "@odoo/owl";
 import {Card} from "./card/card";
-import {useAutofocus} from "./utils";
+import {useAutofocus} from "./TodoList/utils";
 
 const {markup, xml} = owl;
 import {Counter} from "./counter/counter";
