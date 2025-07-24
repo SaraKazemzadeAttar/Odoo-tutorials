@@ -2,23 +2,36 @@
     <t t-name="awesome_dashboard.AwesomeDashboard">
         <Layout className="'o_dashboard h-100'" display="{'controlPanel': {} }">
             <t t-set-slot="layout-buttons"> <!-- to put buttons on the layout -->
-                <button class="btn btn-primary" t-on-click="openCustomers">Customers</button>
-		        <button class="btn btn-primary" t-on-click="openLeads">Leads</button>
+	            <button class="btn btn-primary" t-on-click="openCustomers">Customers</button>
+	            <button class="btn btn-primary" t-on-click="openLeads">Leads</button>
 	        </t>
 
 	        <t t-slot="default">
                 <div class="d-flex flex-wrap p-3">
                     <DashboardItem>
-                        <h4>Some Content</h4>
+                        <h4>Average amount of t_shirt by order this month</h4>
+	                    <p t-esc="state.stats.avg_tshirt_per_order"/>
                     </DashboardItem>
 
-	                <DashboardItem size="2">
-                        <p>I love milk</p>
+	                <DashboardItem>
+                        <h4>Avg Time New → Sent/Cancelled</h4>
+		                <p t-esc="state.stats.avg_processing_time"/>
                     </DashboardItem>
 
-                    <DashboardItem>
-                        <h4>Some Content</h4>
+	                <DashboardItem>
+                        <h4>New Orders This Month</h4>
+		                <p t-esc="state.stats.new_orders"/>
                     </DashboardItem>
+
+	                <DashboardItem>
+                        <h4>Cancelled Orders</h4>
+		                <p t-esc="state.stats.cancelled_orders"/>
+                    </DashboardItem>
+
+	                <DashboardItem>
+		                <h4>Total Amount of New Orders</h4>
+		                <p t-esc="state.stats.total_amount"/>
+	                </DashboardItem>
                 </div>
             </t>
 
