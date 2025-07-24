@@ -1,5 +1,8 @@
 <templates xml:space="preserve">
 	<t t-name="awesome_dashboard.item">
-			</t>
+		<div class="dashboard-item size" t-att-style="'width: ' +(props.size*18) +'rem'">
+			<t t-slot="default"/>
+		</div>
+	</t>
 
 </templates>
