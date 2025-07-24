@@ -2,13 +2,25 @@
     <t t-name="awesome_dashboard.AwesomeDashboard">
         <Layout className="'o_dashboard h-100'" display="{'controlPanel': {} }">
 
-            <t t-slot="controlPanel">
-                <button type="button" class="btn btn-primary" t-on-click="openCustomers">Customers</button>
-                <button type="button" class="btn btn-secondary" t-on-click="openLeads">Leads</button>
-            </t>
+	        <t t-slot="controlPanel">
+                <button class="btn btn-primary" t-on-click="openCustomers">Customers</button>
+		        <button class="btn btn-secondary" t-on-click="openLeads">Leads</button>
+	        </t>
 
-            <t t-slot="default">
-                <h1>Welcome to the Awesome Dashboard!</h1>
+	        <t t-slot="default">
+                <div class="d-flex flex-wrap p-3">
+                    <DashboardItem>
+                        <h4>Some Content</h4>
+                    </DashboardItem>
+
+	                <DashboardItem size="2">
+                        <p>I love milk</p>
+                    </DashboardItem>
+
+                    <DashboardItem>
+                        <h4>Some Content</h4>
+                    </DashboardItem>
+                </div>
             </t>
 
         </Layout>
