@@ -6,6 +6,7 @@ import {Layout} from "@web/search/layout";
 import {useService} from "@web/core/utils/hooks";
 import {DashboardItem} from "../dashboard_item/dashboard_item";
 import {rpc} from "@web/core/network/rpc";
+import { StatisticsService } from "./statistics_service";
 
 export class AwesomeDashboard extends Component {
 	static template = "awesome_dashboard.AwesomeDashboard";
@@ -13,6 +14,7 @@ export class AwesomeDashboard extends Component {
 
 	setup() {
 		this.action = useService("action");
+		this.statisticsService = useService("awesome_dashboard.statistics");
 
 		this.state = useState({
 			stats: {
@@ -25,8 +27,7 @@ export class AwesomeDashboard extends Component {
 		});
 
 		onWillStart(async () => {
-			const result = await rpc("/awesome_dashboard/statistics");
-
+			const result = await this.statisticsService.loadStatistics();
 			this.state.stats = {
 				new_orders: result.nb_new_orders,
 				total_amount: result.total_amount,
@@ -62,4 +63,5 @@ export class AwesomeDashboard extends Component {
 	items_list = []
 }
 
+registry.category("services").add("awesome_dashboard.statistics", StatisticsService);
 registry.category("actions").add("awesome_dashboard.dashboard", AwesomeDashboard);
