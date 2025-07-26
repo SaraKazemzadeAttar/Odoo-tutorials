@@ -4,13 +4,13 @@ import {Component, onWillStart, useState} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {Layout} from "@web/search/layout";
 import {useService} from "@web/core/utils/hooks";
-import {DashboardItem} from "../dashboard_item/dashboard_item";
-import {rpc} from "@web/core/network/rpc";
-import { StatisticsService } from "./statistics_service";
+import {DashboardItem} from "./dashboard_item/dashboard_item";
+import {StatisticsService} from "./statistics_service";
+import {PieChart} from "./piechart/piechart";
 
 export class AwesomeDashboard extends Component {
 	static template = "awesome_dashboard.AwesomeDashboard";
-	static components = {Layout, DashboardItem};
+	static components = {Layout, DashboardItem, PieChart};
 
 	setup() {
 		this.action = useService("action");
@@ -23,6 +23,7 @@ export class AwesomeDashboard extends Component {
 				avg_tshirt_per_order: 0,
 				cancelled_orders: 0,
 				avg_processing_time: "",
+				orders_by_size: {}
 			},
 		});
 
@@ -34,6 +35,7 @@ export class AwesomeDashboard extends Component {
 				avg_tshirt_per_order: result.average_quantity,
 				cancelled_orders: result.nb_cancelled_orders,
 				avg_processing_time: result.average_time,
+				orders_by_size: result.orders_by_size,
 			};
 		});
 	}
