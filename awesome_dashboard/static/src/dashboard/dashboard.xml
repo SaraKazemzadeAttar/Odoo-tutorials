@@ -7,35 +7,35 @@
 	        </t>
 
 	        <t t-slot="default">
-                <div class="d-flex flex-wrap p-3">
-                    <DashboardItem>
+                <div class="d-flex flex-wrap p-3">>
+                    <DashboardItem size="1" >
                         <h4>Average amount of t_shirt by order this month</h4>
-	                    <p t-esc="state.stats.avg_tshirt_per_order"/>
+	                    <t t-esc="state.avg_tshirt_per_order"/>
                     </DashboardItem>
 
-	                <DashboardItem>
+	                <DashboardItem size="1">
                         <h4>Avg Time New → Sent/Cancelled</h4>
-		                <p t-esc="state.stats.avg_processing_time"/>
+		                <p t-esc="state.avg_processing_time"/>
                     </DashboardItem>
 
-	                <DashboardItem>
+	                <DashboardItem size="1">
                         <h4>New Orders This Month</h4>
-		                <p t-esc="state.stats.new_orders"/>
+		                <p t-esc="state.new_orders"/>
                     </DashboardItem>
 
-	                <DashboardItem>
+	                <DashboardItem size="1">
                         <h4>Cancelled Orders</h4>
-		                <p t-esc="state.stats.cancelled_orders"/>
+		                <p t-esc="state.cancelled_orders"/>
                     </DashboardItem>
 
-	                <DashboardItem>
+	                <DashboardItem size="1">
 		                <h4>Total Amount of New Orders</h4>
-		                <p t-esc="state.stats.total_amount"/>
+		                <p t-esc="state.total_amount"/>
 	                </DashboardItem>
 
 	                <DashboardItem size="2">
 		                <h4>Shirt orders by size</h4>
-		                <PieChart data="state.stats.orders_by_size" label="'Shirt orders by size'"/>
+		                <PieChart data="state?.orders_by_size" label="'Shirt orders by size'"/>
                     </DashboardItem>
                 </div>
             </t>
