@@ -25,6 +25,10 @@
         'web.assets_backend': [
             'awesome_dashboard/static/src/**/*',
         ],
+	    'awesome_dashboard.dashboard': [
+		    'awesome_dashboard/static/src/dashboard_loader.js',
+		    'awesome_dashboard/static/src/dashboard_action.js'
+	    ]
     },
     'license': 'AGPL-3'
 }
