@@ -1,10 +1,12 @@
-import { registry } from "@web/core/registry";
-import { LazyComponent } from "@web/core/lazy_component";
+import {registry} from "@web/core/registry";
+import {Component, xml} from "@odoo/owl";
+import {LazyComponent} from "@web/core/assets";
 
-const LazyDashboard = LazyComponent.lazyLoad(
-    () => import("@awesome_dashboard/dashboard/dashboard"),
-    { bundle: "awesome_dashboard.dashboard", component: "awesome_dashboard.dashboard" }
-);
+class AwesomeDashboardLoader extends Component {
+	static components = {LazyComponent};
+	static template = xml`
+	<LazyComponent bundle="'awesome_dashboard.dashboard'" Component="'AwesomeDashboard'"/>
+	`;
+}
 
-
-registry.category("actions").add("awesome_dashboard.dashboard", LazyDashboard);
+registry.category("actions").add("awesome_dashboard.dashboard", AwesomeDashboardLoader);
