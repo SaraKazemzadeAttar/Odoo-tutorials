@@ -6,6 +6,8 @@
 				<i class="fa fa-lg fa-plus"/>
 			</button>
 		</div>
-
+		<button class="btn btn-secondary" t-on-click="openClientAction">
+			Open
+		</button>
 	</t>
 </templates>
