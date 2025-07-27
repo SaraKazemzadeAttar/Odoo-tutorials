@@ -15,13 +15,17 @@ export class PieChart extends Component {
 			this.renderChart();
 		});
 		onWillUnmount(() => {
-			this.chart.destroy();
+			if (this.chart) {
+				this.chart.destroy();
+			}
 		});
 	}
 
 	renderChart() {
-		const labels = Object.keys(this.props.data); // like ['s', 'm', 'xl']
-		const data = Object.values(this.props.data);
+		const rawData = this.props.data || {};
+
+		const labels = Object.keys(rawData); // like ['s', 'm', 'xl']
+		const data = Object.values(rawData);
 		const niceColors = [
 			"#60A5FA", // blue-400
 			"#F87171", // red-400
@@ -51,15 +55,29 @@ export class PieChart extends Component {
 			options: {
 				responsive: true,
 				plugins: {
+					title: {
+						display: true,
+						text: this.props.label,
+						color: "#1F2937", // gray-800
+						font: {
+							size: 18,
+							weight: "bold",
+						},
+						padding: {
+							top: 10,
+							bottom: 20,
+						},
+					},
 					legend: {
 						position: "bottom",
 						labels: {
 							color: "#4B5563",
-							font: {size: 14}
+							font: {size: 14},
 						},
 					},
 				},
 			}
+
 
 		})
 	}
