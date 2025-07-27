@@ -19,7 +19,7 @@ export class AwesomeDashboard extends Component {
 		debugger
 		const service = useService("awesome_dashboard.statistics");
 		this.state = useState(service.stats);
-		this.items = items
+		this.items = registry.category("awesome_dashboard").getAll();
 	}
 
 	openSettings() {
