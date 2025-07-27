@@ -1,0 +1,5 @@
+<template>
+	<t t-name="awesome_clicker.ClickValue">
+		<t t-esc="humanized_counter"/>
+	</t>
+</template>
