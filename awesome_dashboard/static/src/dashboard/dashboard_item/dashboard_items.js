@@ -1,7 +1,7 @@
 import { NumberCard } from "../NumberCard/number_card";
 import { PieChartCard } from "../PieChartCard/piechart_card";
 import {registry} from "@web/core/registry";
-
+import {_t} from "@web/core/l10n/translation";
 const items = [
     {
         id: "average_quantity",
@@ -9,7 +9,7 @@ const items = [
         Component: NumberCard,
         size: 3,
         props: (data) => ({
-            title: "Average T-shirts per Order",
+            title: _t("Average T-shirts per Order"),
             value: data.avg_tshirt_per_order,
         }),
     },
@@ -19,7 +19,7 @@ const items = [
         Component: NumberCard,
         size: 3,
         props: (data) => ({
-            title: "New Orders",
+            title:  _t("New Orders"),
             value: data.new_orders,
         }),
     },
@@ -29,7 +29,7 @@ const items = [
         Component: NumberCard,
         size: 3,
         props: (data) => ({
-            title: "Cancelled Orders",
+            title:  _t("Cancelled Orders"),
             value: data.cancelled_orders,
         }),
     },
@@ -39,7 +39,7 @@ const items = [
     Component: PieChartCard,
     size: 6,
     props: (data) => ({
-        label: "Orders by T-shirt Size",
+        label:  _t("Orders by T-shirt Size"),
         data: data?.orders_by_size
     }),
     },
