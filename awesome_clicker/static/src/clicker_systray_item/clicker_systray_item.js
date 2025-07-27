@@ -1,5 +1,5 @@
 import {registry} from "@web/core/registry";
-import {Component, useExternalListener, useState} from "@odoo/owl";
+import {Component, useState} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
 import {ClientAction} from "../client_action/client_action";
 
@@ -9,9 +9,9 @@ class ClickerSystray extends Component {
 	static components = {ClientAction}
 
 	setup() {
-		this.state = useState({counter: 0});
 		this.action = useService("action")
-		useExternalListener(document.body, "click", () => this.state.counter++, true);
+		this.clickService = useState(useService("awesome_clicker.clicker"));
+
 	}
 
 	increment() {
