@@ -1,7 +1,7 @@
 <templates>
 	<t t-name="awesome_clicker.ClickerSystray">
 		<div>
-            Clicks: <t t-esc="this.clicker"/>
+            Clicks: <t t-esc="this.clicker.state.clicker"/>
             <button class="btn btn-secondary" t-on-click="() => this.clicker.increment(9)">
 				<i class="fa fa-lg fa-plus"/>
 			</button>
