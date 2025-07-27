@@ -1,0 +1,7 @@
+<templates>
+	<t t-name="awesome_clicker.client_action">
+		<div>
+			Client Action
+		</div>
+	</t>
+</templates>
