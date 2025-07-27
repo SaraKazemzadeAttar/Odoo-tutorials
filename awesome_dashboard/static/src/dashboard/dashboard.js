@@ -9,21 +9,37 @@ import {PieChart} from "./piechart/piechart";
 import {items} from "./dashboard_item/dashboard_items";
 import {PieChartCard} from "./PieChartCard/piechart_card"
 import {NumberCard} from "./NumberCard/number_card";
+import {ConfigurationDialog} from "./configuration_dialog/configuration_dialog"
+import { browser } from "@web/core/browser/browser";
 
 export class AwesomeDashboard extends Component {
 	static template = "awesome_dashboard.AwesomeDashboard";
-	static components = {Layout, DashboardItem, PieChart,PieChartCard , NumberCard};
+	static components = {Layout, DashboardItem, PieChart,PieChartCard , NumberCard , ConfigurationDialog};
 
 	setup() {
 		this.action = useService("action");
+	    this.dialog = useService("dialog");
 		debugger
 		const service = useService("awesome_dashboard.statistics");
-		this.state = useState(service.stats);
+		this.statistics = useState(service.stats);
 		this.items = registry.category("awesome_dashboard").getAll();
+        this.state = useState({
+            disabledItems: browser.localStorage.getItem("disabledDashboardItems")?.split(",") || []
+        });
+
 	}
 
-	openSettings() {
-		this.action.doAction("base_setup.action_general_configuration")
+	openConfiguration(){
+		console.log("openConfiguration called");
+        this.dialog.add(ConfigurationDialog, {
+            items: this.items,
+            disabledItems: this.state.disabledItems,
+            onUpdateConfiguration: this.updateConfiguration.bind(this),
+        })
+	}
+
+	updateConfiguration(newDisabledItems) {
+	    this.state.disabledItems = newDisabledItems;
 	}
 
 	openCustomers() {
