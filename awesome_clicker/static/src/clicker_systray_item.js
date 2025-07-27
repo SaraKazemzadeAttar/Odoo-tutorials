@@ -1,9 +1,19 @@
-import { registry } from "@web/core/registry";
+import {registry} from "@web/core/registry";
+import { Component , useState} from "@odoo/owl";
 
-class HelloWorld extends Component {
+class ClickerSystray extends Component {
+	static template = "awesome_clicker.ClickerSystray";
+	static props = {};
 
+	setup() {
+		this.state = useState({counter: 0});
+	}
+
+	increment() {
+		this.state.counter++;
+	}
 }
-
-registry.category("systray").add("myAddon.myItem", {
-    Component: HelloWorld,
-});
+export const systrayItem ={
+	Component: ClickerSystray
+}
+registry.category("systray").add("awesome_clicker.ClickerSystray", systrayItem, {sequence: 1000})

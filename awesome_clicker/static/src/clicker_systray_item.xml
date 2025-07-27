@@ -1,0 +1,11 @@
+<templates>
+	<t t-name="awesome_clicker.ClickerSystray">
+		<div>
+			Clicks : <t t-esc="state.counter"/>
+			<button class="btn btn-secondary" t-on-click="increment">
+				<i class="fa fa-lg fa-plus"/>
+			</button>
+		</div>
+
+	</t>
+</templates>
