@@ -4,7 +4,7 @@ import {registry} from "@web/core/registry";
 
 export const ClickerService = {
 	start() {
-		const state = reactive({ clicker: 0});
+		const state = reactive({ clicker: 10000});
 		function increment(inc){
 			state.clicker += inc;
 		}

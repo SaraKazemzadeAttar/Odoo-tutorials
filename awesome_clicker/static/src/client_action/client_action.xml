@@ -1,7 +1,7 @@
 <templates>
 	<t t-name="awesome_clicker.client_action">
 		<div>
-            <span>Clicks: <t t-esc="this.clicker.state.clicker"/></span>
+            <span>Clicks: <ClickValue/></span>
 			<button class="btn btn-primary ms-1" t-on-click="() => this.clicker.increment(9)">Increment</button>
 		</div>
 	</t>

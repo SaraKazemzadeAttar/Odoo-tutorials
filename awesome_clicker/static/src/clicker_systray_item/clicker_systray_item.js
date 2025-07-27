@@ -3,11 +3,12 @@ import {Component, useState} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
 import {ClientAction} from "../client_action/client_action";
 import { useClicker } from "../clicker_hook"
+import {ClickValue} from "../clicker_value/click_value";
 
 class ClickerSystray extends Component {
 	static template = "awesome_clicker.ClickerSystray";
 	static props = {};
-	static components = {ClientAction}
+	static components = {ClientAction , ClickValue}
 
 	setup() {
 		this.action = useService("action")
