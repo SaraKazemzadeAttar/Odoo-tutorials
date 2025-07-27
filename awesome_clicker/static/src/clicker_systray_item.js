@@ -11,7 +11,7 @@ class ClickerSystray extends Component {
     }
 
 	increment() {
-		this.state.counter++;
+		this.state.counter += 9;
 	}
 }
 export const systrayItem ={
