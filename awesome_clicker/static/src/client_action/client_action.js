@@ -11,6 +11,8 @@ export class ClientAction extends Component {
 
     setup() {
         this.clicker = useClicker()
+	    this.state = this.clicker.state;
+        this.buyClickBot = this.clicker.buyClickBot;
     }
 }
 

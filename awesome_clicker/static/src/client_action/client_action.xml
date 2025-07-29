@@ -1,8 +1,25 @@
 <templates>
 	<t t-name="awesome_clicker.client_action">
 		<div>
-            <span>Clicks: <ClickValue/></span>
+			<span>Clicks: <ClickValue/></span>
 			<button class="btn btn-primary ms-1" t-on-click="() => this.clicker.increment(9)">Increment</button>
 		</div>
+		<t t-if="state.level >= 1">
+			<div>
+				<p>Bots: <t t-esc="state.clickBots"/></p>
+				<div class="card-header">
+					<t t-esc="this.clicker.state.clickBots"/>x ClickBots (10 clicks/10seconds)
+					<i class="fa fa-android"></i>
+
+				<button
+						t-on-click="() => this.clicker.buyClickBot()"
+						class="btn btn-primary"
+						t-att-disabled="this.clicker.state.clicks &lt; 1000"
+				>
+					Buy ClickBot (1000 clicks)
+				</button>
+				</div>
+			</div>
+		</t>
 	</t>
 </templates>
