@@ -2,10 +2,18 @@ import {registry} from "@web/core/registry";
 import {ClickerModel} from "../clicker_model";
 
 export const ClickerService = {
-	start() {
+	dependencies: ["effect"],
+	start( env) {
 		const clicker_model = new ClickerModel();
+		const effect = env.services.effect;
 		document.addEventListener("click", () => clicker_model.addClick(), true);
 
+        clicker_model.bus.addEventListener("MILESTONE_1K", () => {
+            effect.add({
+                type: "rainbow_man",
+                message: "Milestone reached ! You can now buy clickbots!",
+            });
+        });
 		setInterval(() => {
 			clicker_model.tick()
 		}, 10000);
