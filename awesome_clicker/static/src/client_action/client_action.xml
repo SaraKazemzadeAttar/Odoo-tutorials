@@ -2,27 +2,49 @@
 	<t t-name="awesome_clicker.client_action">
 		<div>
 			<span>Clicks: <ClickValue/></span>
-			<button class="btn btn-primary ms-1" t-on-click="() => this.clicker.increment(9)">Increment</button>
+			<button class="btn btn-primary ms-1" t-on-click="() => this.clicker.increment(9) * this.clicker.buyMultiplier">Increment</button>
 		</div>
-		<t t-if="clicker.level >= 1">
-			<div>
-			<p>Bots: <t t-esc="clickBots"/></p>
-			<div class="card">
+		<t t-if="this.clicker.level >= 1">
+		    <div class="d-flex flex-row">
+		        <t t-foreach="Object.entries(this.clicker.bots)" t-as="botEntry" t-key="botEntry[0]">
+		            <t t-set="bot" t-value="botEntry[0]"/>
+		            <t t-set="bot_value" t-value="botEntry[1]"/>
+
+		            <div t-if="bot_value.level lte this.clicker.level" class="card me-3">
+		                <div class="card-header">
+		                    <t t-esc="bot_value.purchased"/>x <t t-esc="bot"/> (<t t-esc="bot_value.increment"/> clicks/10seconds)
+		                    <i class="fa fa-android"></i>
+		                </div>
+		                <div class="card-body">
+		                    <button
+		                        t-on-click="() => this.clicker.buyBot(bot)"
+		                        class="btn btn-primary"
+		                        t-att-disabled="this.clicker.clicks lt bot_value.price"
+		                    >
+		                        Buy <t t-esc="bot"/> (<t t-esc="bot_value.price"/> clicks)
+		                    </button>
+		                </div>
+		            </div>
+		        </t>
+		    </div>
+		</t>
+		<t t-if="this.clicker.level >= 3">
+		    <div class="d-flex flex-row">
+			<div class="card me-3">
 				<div class="card-header">
-					<t t-esc="this.clicker.clickBots"/>x ClickBots (10 clicks/10seconds)
-					<i class="fa fa-android"></i>
+					<t t-esc="this.clicker.multiplier"/>x <i class="fa fa-android"></i>
 				</div>
 				<div class="card-body">
 					<button
-							t-on-click="() => this.clicker.buyClickBot()"
+							t-on-click="() => this.clicker.buyMultiplier()"
 							class="btn btn-primary"
-							t-att-disabled="this.clicker.clicks &lt; 1000"
+							t-att-disabled="this.clicker.clicks &lt; 50000"
 					>
-						Buy ClickBot (1000 clicks)
+						Buy Power Multiplier (50000 clicks)
 					</button>
 				</div>
-			</div>
-			</div>
+		    </div>
+		    </div>
 		</t>
 	</t>
 </templates>

@@ -8,7 +8,7 @@ export const ClickerService = {
 		const effect = env.services.effect;
 		document.addEventListener("click", () => clicker_model.addClick(), true);
 
-        clicker_model.bus.addEventListener("MILESTONE_1K", () => {
+        clicker_model.bus.addEventListener("MILESTONE", () => {
             effect.add({
                 type: "rainbow_man",
                 message: "Milestone reached ! You can now buy clickbots!",

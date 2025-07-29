@@ -4,10 +4,32 @@ import { EventBus } from "@odoo/owl";
 export class ClickerModel extends Reactive {
 	constructor() {
 		super();
-		this.clicks = 990;
+		this.clicks = 50000;
 		this.clickBots = 0;
 		this.level = 0;
+		this.bigBots = 0;
 		this.bus = new EventBus();
+		this.milestones = [
+            { clicks: 1000, message: "Clickbots unlocked!" },
+            { clicks: 5000, message: "BigBots unlocked!" },
+			{ clicks: 50000, unlock: "power multiplier" },
+        ];
+		this.bots = {
+		    clickbot: {
+		        level: 1,
+		        price: 1000,
+		        increment: 10,
+		        purchased: 0,
+		    },
+		    bigbot: {
+		        level: 2,
+		        price: 5000,
+		        increment: 100,
+		        purchased: 0,
+		    },
+		};
+		this.multiplier = 1;
+
 	}
 
 	addClick() {
@@ -19,28 +41,43 @@ export class ClickerModel extends Reactive {
 		this.checkMilestones();
 	}
 	tick() {
-	    this.clicks += this.clickBots * 10;
-	}
-
-	checkMilestones() {
-		if (this.level === 0 && this.clicks >= 1000) {
-			this.level = 1;
-			this.bus.trigger("MILESTONE_1K");
+		for(const bot in this.bot){
+	    this.clicks += this.clickBots * 10 * this.multiplier;
 		}
 	}
 
-	buyClickBot() {
-		const clickBotPrice = 1000;
-		if (this.clicks >= clickBotPrice) {
-			this.clickBots += 1;
-			this.clicks -= clickBotPrice;
-		}
-		return false;
-	}
+    checkMilestones() {
+        const milestone = this.milestones[this.level];
+        if (milestone && this.clicks >= milestone.clicks) {
+            this.bus.trigger("MILESTONE");
+            this.level += 1;
+        }
+    }
 
 	reset() {
 		this.clicks = 0;
 		this.clickBots = 0;
 		this.level = 0;
 	}
+
+	buyBot(botName) {
+		const bot = this.bots[botName];
+		if (this.clicks >= bot.price) {
+			this.clicks -= bot.price;
+			bot.purchased += 1;
+			if (botName === "clickbot") {
+				this.clickBots += 1;
+			} else if (botName === "bigbot") {
+				this.bigBots += 1;
+			}
+		}
+	}
+
+    buyMultiplier() {
+        if (this.clicks < 50000) {
+            return false;
+        }
+        this.clicks -= 50000;
+        this.multiplier++;
+    }
 }
