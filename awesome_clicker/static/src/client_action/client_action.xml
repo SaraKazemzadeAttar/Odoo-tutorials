@@ -7,10 +7,11 @@
 		<t t-if="state.level >= 1">
 			<div>
 				<p>Bots: <t t-esc="state.clickBots"/></p>
+				<div class="card">
 				<div class="card-header">
 					<t t-esc="this.clicker.state.clickBots"/>x ClickBots (10 clicks/10seconds)
 					<i class="fa fa-android"></i>
-
+				</div>
 				<button
 						t-on-click="() => this.clicker.buyClickBot()"
 						class="btn btn-primary"
