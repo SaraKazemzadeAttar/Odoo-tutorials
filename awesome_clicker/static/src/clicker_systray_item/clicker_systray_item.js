@@ -17,7 +17,7 @@ class ClickerSystray extends Component {
 	}
 
 	increment() {
-		this.state.counter += 9;
+		this.clicker += 9;
 	}
 
 	openClientAction() {
