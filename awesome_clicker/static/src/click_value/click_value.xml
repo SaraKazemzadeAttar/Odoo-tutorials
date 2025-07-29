@@ -1,6 +1,6 @@
 <template>
   <t t-name="awesome_clicker.ClickValue">
-    <span t-att-data-tooltip="clicker.state.clicker" class="has-tooltip">
+    <span t-att-data-tooltip="clicker.state.clicks" class="has-tooltip">
       <t t-esc="humanized_counter"/>
     </span>
   </t>
