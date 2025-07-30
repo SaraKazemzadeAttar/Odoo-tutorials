@@ -80,6 +80,17 @@ export class ClickerModel extends Reactive {
 		}
 	}
 
+    toJSON() {
+        const json = Object.assign({}, this);
+        delete json["bus"];
+        return json;
+    }
+
+    static fromJSON(json) {
+        const clicker = new ClickerModel();
+        const clickerInstance = Object.assign(clicker, json);
+        return clickerInstance;
+    }
 	checkMilestones() {
 		const milestone = this.milestones[this.level];
 		if (milestone && this.clicks >= milestone.clicks) {
