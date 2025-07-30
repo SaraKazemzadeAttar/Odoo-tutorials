@@ -1,13 +1,25 @@
 <templates>
 	<t t-name="awesome_clicker.ClickerSystray">
-		<div>
-            Clicks: <ClickValue/>
-            <button class="btn btn-secondary" t-on-click="() => this.clicker.increment(9)">
-				<i class="fa fa-lg fa-plus"/>
+		<Dropdown>
+			<button>
+				<ClickValue/> <i class="fa fa-mouse-pointer fa-fw"></i>,
+				<t t-esc="this.numberTrees"/> <i class="fa fa-tree fa-fw"></i>,
+				<t t-esc="this.numberFruits"/> <i class="fa fa-apple fa-fw"></i>
 			</button>
-		</div>
-		<button class="btn btn-secondary" t-on-click="openClientAction">
-			Open
-		</button>
+			<t t-set-slot="content">
+				<DropdownItem><button class="btn btn-secondary" t-on-click="this.openClientAction">Open the clicker game</button></DropdownItem>
+				<DropdownItem><button class="btn btn-secondary" t-on-click="() => this.clicker.buyBot('clickbot')">Buy a ClickBot</button></DropdownItem>
+				<DropdownItem t-foreach="Object.entries(this.clicker.trees)" t-as="treeEntry" t-key="treeEntry[0]">
+					<t t-set="tree" t-value="treeEntry[0]"/>
+					<t t-set="tree_value" t-value="treeEntry[1]"/>
+					<t t-esc="tree_value.purchased"/>x <t t-esc="tree"/>
+				</DropdownItem>
+				<DropdownItem t-foreach="Object.entries(this.clicker.fruits)" t-as="fruitEntry" t-key="fruitEntry[0]">
+					<t t-set="fruit" t-value="fruitEntry[0]"/>
+					<t t-set="fruit_value" t-value="fruitEntry[1]"/>
+					<t t-esc="fruit_value"/>x <t t-esc="fruit"/>
+				</DropdownItem>
+			</t>
+		</Dropdown>
 	</t>
 </templates>
