@@ -4,87 +4,93 @@
 			<span>Clicks: <ClickValue/></span>
 			<button class="btn btn-primary ms-1" t-on-click="() => this.clicker.increment(9) * this.clicker.buyMultiplier">Increment</button>
 		</div>
-		<t t-if="this.clicker.level >= 1">
-			<h2>Bots</h2>
-			<div class="d-flex flex-row">
-				<t t-foreach="Object.entries(this.clicker.bots)" t-as="botEntry" t-key="botEntry[0]">
-					<t t-set="bot" t-value="botEntry[0]"/>
-					<t t-set="bot_value" t-value="botEntry[1]"/>
+		<Notebook>
+			 <t t-set-slot="clicks" title="'Clicks'" isVisible="this.clicker.level >= 1">
+				<t t-if="this.clicker.level >= 1">
+					<h2>Bots</h2>
+					<div class="d-flex flex-row">
+						<t t-foreach="Object.entries(this.clicker.bots)" t-as="botEntry" t-key="botEntry[0]">
+							<t t-set="bot" t-value="botEntry[0]"/>
+							<t t-set="bot_value" t-value="botEntry[1]"/>
 
-					<div t-if="bot_value.level lte this.clicker.level" class="card me-3">
-						<div class="card-header">
-							<t t-esc="bot_value.purchased"/>x <t t-esc="bot"/> (<t t-esc="bot_value.increment"/> clicks/10seconds)
-							<i class="fa fa-android"></i>
-						</div>
-						<div class="card-body">
-							<button
-									t-on-click="() => this.clicker.buyBot(bot)"
-									class="btn btn-primary"
-									t-att-disabled="this.clicker.clicks lt bot_value.price"
-							>
-								Buy <t t-esc="bot"/> (<t t-esc="bot_value.price"/> clicks)
-							</button>
+							<div t-if="bot_value.level lte this.clicker.level" class="card me-3">
+								<div class="card-header">
+									<t t-esc="bot_value.purchased"/>x <t t-esc="bot"/> (<t t-esc="bot_value.increment"/> clicks/10seconds)
+									<i class="fa fa-android"></i>
+								</div>
+								<div class="card-body">
+									<button
+											t-on-click="() => this.clicker.buyBot(bot)"
+											class="btn btn-primary"
+											t-att-disabled="this.clicker.clicks lt bot_value.price"
+									>
+										Buy <t t-esc="bot"/> (<t t-esc="bot_value.price"/> clicks)
+									</button>
+								</div>
+							</div>
+						</t>
+					</div>
+				</t>
+				<t t-if="this.clicker.level >= 3">
+					<h2>Multipliers</h2>
+					<div class="d-flex flex-row">
+						<div class="card me-3">
+							<div class="card-header">
+								<t t-esc="this.clicker.multiplier"/>x <i class="fa fa-android"></i>
+							</div>
+							<div class="card-body">
+								<button
+										t-on-click="() => this.clicker.buyMultiplier()"
+										class="btn btn-primary"
+										t-att-disabled="this.clicker.clicks &lt; 50000"
+								>
+									Buy Power Multiplier (50000 clicks)
+								</button>
+							</div>
 						</div>
 					</div>
 				</t>
-			</div>
-		</t>
-		<t t-if="this.clicker.level >= 3">
-			<h2>Multipliers</h2>
-			<div class="d-flex flex-row">
-				<div class="card me-3">
-					<div class="card-header">
-						<t t-esc="this.clicker.multiplier"/>x <i class="fa fa-android"></i>
+			</t>
+			 <t t-set-slot="trees" title="'Trees and Fruits'" isVisible="this.clicker.level >= 4">
+				<t t-if="this.clicker.level >= 4">
+					<h2>Trees</h2>
+					<div class="d-flex flex-row">
+						<t t-foreach="Object.entries(this.clicker.trees)" t-as="treeEntry" t-key="treeEntry[0]">
+							<t t-set="tree" t-value="treeEntry[0]"/>
+							<t t-set="tree_value" t-value="treeEntry[1]"/>
+							<div t-if="tree_value.level lte this.clicker.level" class="card me-3">
+								<div class="card-header">
+									<t t-esc="tree_value.purchased"/>x <t t-esc="tree"/> (1x <t t-esc="tree_value.produce"/> /30seconds)
+									<i class="fa fa-tree"></i>
+								</div>
+								<div class="card-body">
+									<button
+											t-on-click="() => this.clicker.buyTree(tree)"
+											class="btn btn-primary"
+											t-att-disabled="this.clicker.clicks lt tree_value.price">
+										Buy <t t-esc="tree"/> (<t t-esc="tree_value.price"/> clicks)
+									</button>
+								</div>
+							</div>
+						</t>
 					</div>
-					<div class="card-body">
-						<button
-								t-on-click="() => this.clicker.buyMultiplier()"
-								class="btn btn-primary"
-								t-att-disabled="this.clicker.clicks &lt; 50000"
-						>
-							Buy Power Multiplier (50000 clicks)
-						</button>
-					</div>
-				</div>
-			</div>
-		</t>
-		<t t-if="this.clicker.level >= 4">
-			<h2>Trees</h2>
-			<div class="d-flex flex-row">
-			<t t-foreach="Object.entries(this.clicker.trees)" t-as="treeEntry" t-key="treeEntry[0]">
-				<t t-set="tree" t-value="treeEntry[0]"/>
-				<t t-set="tree_value" t-value="treeEntry[1]"/>
-					<div t-if="tree_value.level lte this.clicker.level" class="card me-3">
-						<div class="card-header">
-							<t t-esc="tree_value.purchased"/>x <t t-esc="tree"/> (1x <t t-esc="tree_value.produce"/> /30seconds)
-							<i class="fa fa-tree"></i>
-						</div>
-						<div class="card-body">
-							<button
-									t-on-click="() => this.clicker.buyTree(tree)"
-									class="btn btn-primary"
-									t-att-disabled="this.clicker.clicks lt tree_value.price">
-								Buy <t t-esc="tree"/> (<t t-esc="tree_value.price"/> clicks)
-							</button>
-						</div>
+
+					<h2> Fruits </h2>
+					<div class="d-flex flex-row">
+						<t t-foreach="Object.entries(this.clicker.fruits)" t-as="fruitEntry" t-key="fruitEntry[0]">
+							<t t-set="fruit" t-value="fruitEntry[0]"/>
+							<t t-set="fruit_value" t-value="fruitEntry[1]"/>
+
+							<div class="card me-3">
+								<div class="card-header">
+									<t t-esc="fruit_value"/>x <t t-esc="fruit"/>
+								</div>
+							</div>
+						</t>
+
 					</div>
 				</t>
-			</div>
-
-			<h2> Fruits </h2>
-			<div class="d-flex flex-row">
-				<t t-foreach="Object.entries(this.clicker.fruits)" t-as="fruitEntry" t-key="fruitEntry[0]">
-				    <t t-set="fruit" t-value="fruitEntry[0]"/>
-				    <t t-set="fruit_value" t-value="fruitEntry[1]"/>
-
-				    <div class="card me-3">
-				        <div class="card-header">
-				            <t t-esc="fruit_value"/>x <t t-esc="fruit"/>
-				        </div>
-				    </div>
-				</t>
-
-			</div>
-		</t>
+			</t>
+		</Notebook>
 	</t>
 </templates>
