@@ -2,6 +2,7 @@ import { Reactive } from '@web/core/utils/reactive';
 import { EventBus } from "@odoo/owl";
 import { rewards} from "./click_rewards";
 import { choose } from "./utils"
+
 export class ClickerModel extends Reactive {
 	constructor() {
 		super();
@@ -82,11 +83,20 @@ export class ClickerModel extends Reactive {
         this.multiplier++;
     }
 
-	getReward(clicker) {
-	    const filtered = rewards.filter((r) =>
-	        (!r.minLevel || clicker.level >= r.minLevel) &&
-	        (!r.maxLevel || clicker.level <= r.maxLevel)
-	    );
-	    return choose(filtered);
+	getReward() {
+		debugger
+		const filteredReward = rewards.filter((r) =>
+			(!r.minLevel || this.level >= r.minLevel) &&
+			(!r.maxLevel || this.level <= r.maxLevel)
+		);
+
+		const reward = choose(filteredReward);
+
+		if (reward && reward.apply) {
+			reward.apply(this);
+			this.bus.trigger("REWARD", reward);
+		}
+
+		return reward;
 	}
 }

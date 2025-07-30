@@ -1,5 +1,5 @@
 export const rewards = [
-   {
+	{
       description: "Get 1 click bot",
       apply(clicker) {
             clicker.increment(1);
@@ -17,8 +17,15 @@ export const rewards = [
    {
       description: "Increase bot power!",
       apply(clicker) {
-            clicker.multipler += 1;
+            clicker.multiplier += 1;
       },
       minLevel: 3,
+   },
+	{
+      description: "Test Increase bot power!",
+      apply(clicker) {
+            clicker.multiplier += 1;
+      },
+      minLevel: 0,
    },
 ];

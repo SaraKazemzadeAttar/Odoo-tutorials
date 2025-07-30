@@ -1,6 +1,5 @@
 import {registry} from "@web/core/registry";
 import { Component , useState , useExternalListener, openClientAction} from "@odoo/owl";
-import {useService} from "@web/core/utils/hooks";
 import { useClicker } from "../clicker_hook"
 import { ClickValue} from "../click_value/click_value";
 
