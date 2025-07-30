@@ -6,7 +6,7 @@ const FormControllerPatch = {
 	setup() {
 		super.setup(...arguments);
 		debugger
-		if (Math.random() < 1) {
+		if (Math.random() < 0.01) {
 			const clicker = useClicker();
 			clicker.getReward();
 		}
