@@ -1,12 +1,13 @@
 import { registry } from "@web/core/registry";
 import { ClickerModel } from "../clicker_model";
 import { browser } from "@web/core/browser/browser";
+import { migrate } from "../clicker_migration";
 
 export const ClickerService = {
     dependencies: ["effect", "action", "notification"],
 
     start(env) {
-        const localState = JSON.parse(browser.localStorage.getItem("clickerState"));
+        const localState = migrate(JSON.parse(browser.localStorage.getItem("clickerState")));
         const clicker_model = localState ? ClickerModel.fromJSON(localState): new ClickerModel();
         const effect = env.services.effect;
         const action = env.services.action;
