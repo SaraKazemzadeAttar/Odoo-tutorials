@@ -6,7 +6,7 @@ import { choose } from "./utils"
 export class ClickerModel extends Reactive {
 	constructor() {
 		super();
-		this.clicks = 50000;
+		this.clicks = 1000000;
 		this.clickBots = 0;
 		this.level = 0;
 		this.bigBots = 0;
@@ -32,7 +32,25 @@ export class ClickerModel extends Reactive {
 		    },
 		};
 		this.multiplier = 1;
-
+		this.trees= {
+			pearTree:{
+				level: 4,
+				price: 1000000,
+				produce: "pear",
+				purchased: 0
+			},
+			cherryTree:{
+				level: 4,
+				price: 1000000,
+				produce: "cherry",
+				purchased: 0
+			},
+		}
+		this.fruits = {
+			pear:0,
+			cherry:0,
+		}
+		this.ticks = 0 ;
 	}
 
 	addClick() {
@@ -44,9 +62,17 @@ export class ClickerModel extends Reactive {
 		this.checkMilestones();
 	}
 	tick() {
+		this.ticks++;
 		for(const bot in this.bot){
 	    this.clicks += this.clickBots * 10 * this.multiplier;
 		}
+		// every 30s, increment a fruit
+
+        if (this.ticks % 3 === 0) {
+	        for (const tree in this.trees) {
+		        this.fruits[this.trees[tree].produce] += this.trees[tree].purchased;
+	        }
+        }
 	}
 
     checkMilestones() {
@@ -82,6 +108,14 @@ export class ClickerModel extends Reactive {
         }
         this.clicks -= 50000;
         this.multiplier++;
+    }
+
+    buyTree() {
+        if (this.clicks < 1000000) {
+            return false;
+        }
+        this.clicks -= 1000000;
+        this.trees.purchased += 1;
     }
 
 	getReward() {
