@@ -1,7 +1,7 @@
-import { Reactive } from '@web/core/utils/reactive';
-import { EventBus } from "@odoo/owl";
-import { rewards} from "./click_rewards";
-import { choose } from "./utils"
+import {Reactive} from '@web/core/utils/reactive';
+import {EventBus} from "@odoo/owl";
+import {rewards} from "./click_rewards";
+import {choose} from "./utils"
 
 export class ClickerModel extends Reactive {
 	constructor() {
@@ -12,34 +12,34 @@ export class ClickerModel extends Reactive {
 		this.bigBots = 0;
 		this.bus = new EventBus();
 		this.milestones = [
-            { clicks: 1000, unlock: "Clickbots" },
-            { clicks: 5000, unlock: "BigBots" },
-			{ clicks: 50000, unlock: "power multiplier" },
-			{ clicks: 1000000, unlock: "trees" }
-        ];
+			{clicks: 1000, unlock: "Clickbots"},
+			{clicks: 5000, unlock: "BigBots"},
+			{clicks: 50000, unlock: "power multiplier"},
+			{clicks: 1000000, unlock: "trees"}
+		];
 		this.bots = {
-		    clickbot: {
-		        level: 1,
-		        price: 1000,
-		        increment: 10,
-		        purchased: 0,
-		    },
-		    bigbot: {
-		        level: 2,
-		        price: 5000,
-		        increment: 100,
-		        purchased: 0,
-		    },
+			clickbot: {
+				level: 1,
+				price: 1000,
+				increment: 10,
+				purchased: 0,
+			},
+			bigbot: {
+				level: 2,
+				price: 5000,
+				increment: 100,
+				purchased: 0,
+			},
 		};
 		this.multiplier = 1;
-		this.trees= {
-			pearTree:{
+		this.trees = {
+			pearTree: {
 				level: 4,
 				price: 1000000,
 				produce: "pear",
 				purchased: 0
 			},
-			cherryTree:{
+			cherryTree: {
 				level: 4,
 				price: 1000000,
 				produce: "cherry",
@@ -47,10 +47,10 @@ export class ClickerModel extends Reactive {
 			},
 		}
 		this.fruits = {
-			pear:0,
-			cherry:0,
+			pear: 0,
+			cherry: 0,
 		}
-		this.ticks = 0 ;
+		this.ticks = 0;
 	}
 
 	addClick() {
@@ -63,25 +63,30 @@ export class ClickerModel extends Reactive {
 	}
 	tick() {
 		this.ticks++;
-		for(const bot in this.bot){
-	    this.clicks += this.clickBots * 10 * this.multiplier;
+		for (const bot in this.bot) {
+			this.clicks += this.clickBots * 10 * this.multiplier;
 		}
 		// every 30s, increment a fruit
 
-        if (this.ticks % 3 === 0) {
-	        for (const tree in this.trees) {
-		        this.fruits[this.trees[tree].produce] += this.trees[tree].purchased;
-	        }
-        }
+		if (this.ticks % 3 === 0) {
+			for (const treeName in this.trees) {
+				const tree = this.trees[treeName];
+				if (!tree.produce) {
+					continue;
+				}
+				this.fruits[tree.produce] = (this.fruits[tree.produce] || 0) + tree.purchased;
+			}
+			console.log(this.fruits);
+		}
 	}
 
-    checkMilestones() {
-        const milestone = this.milestones[this.level];
-        if (milestone && this.clicks >= milestone.clicks) {
-            this.bus.trigger("MILESTONE", this.milestones[this.level]);
+	checkMilestones() {
+		const milestone = this.milestones[this.level];
+		if (milestone && this.clicks >= milestone.clicks) {
+			this.bus.trigger("MILESTONE", this.milestones[this.level]);
 			this.level += 1;
-        }
-    }
+		}
+	}
 
 	reset() {
 		this.clicks = 0;
@@ -102,21 +107,25 @@ export class ClickerModel extends Reactive {
 		}
 	}
 
-    buyMultiplier() {
-        if (this.clicks < 50000) {
-            return false;
-        }
-        this.clicks -= 50000;
-        this.multiplier++;
-    }
+	buyMultiplier() {
+		if (this.clicks < 50000) {
+			return false;
+		}
+		this.clicks -= 50000;
+		this.multiplier++;
+	}
 
-    buyTree() {
-        if (this.clicks < 1000000) {
-            return false;
-        }
-        this.clicks -= 1000000;
-        this.trees.purchased += 1;
-    }
+	buyTree(name) {
+		debugger
+		if (!Object.keys(this.trees).includes(name)) {
+			throw new Error(`Invalid tree name ${name}`);
+		}
+		if (this.clicks < 1000000) {
+			return false;
+		}
+		this.clicks -= 1000000;
+		this.trees[name].purchased += 1;
+	}
 
 	getReward() {
 		debugger
