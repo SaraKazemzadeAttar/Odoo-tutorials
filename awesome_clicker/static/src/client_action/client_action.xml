@@ -5,6 +5,7 @@
 			<button class="btn btn-primary ms-1" t-on-click="() => this.clicker.increment(9) * this.clicker.buyMultiplier">Increment</button>
 		</div>
 		<t t-if="this.clicker.level >= 1">
+			<h2>Bots</h2>
 		    <div class="d-flex flex-row">
 		        <t t-foreach="Object.entries(this.clicker.bots)" t-as="botEntry" t-key="botEntry[0]">
 		            <t t-set="bot" t-value="botEntry[0]"/>
@@ -29,6 +30,7 @@
 		    </div>
 		</t>
 		<t t-if="this.clicker.level >= 3">
+			    <h2>Multipliers</h2>
 		    <div class="d-flex flex-row">
 			<div class="card me-3">
 				<div class="card-header">
