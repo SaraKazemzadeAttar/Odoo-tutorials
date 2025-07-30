@@ -12,12 +12,16 @@ export const ClickerService = {
 
         document.addEventListener("click", () => clicker_model.addClick(), true);
 
-        clicker_model.bus.addEventListener("MILESTONE", () => {
-            effect.add({
-                type: "rainbow_man",
-                message: "Milestone reached ! You can now buy clickbots!",
-            });
-        });
+		clicker_model.bus.addEventListener("MILESTONE", (event) => {
+		    const milestone = event.detail;
+		    const unlockFeature = milestone.unlock;
+
+		    effect.add({
+		        type: "rainbow_man",
+		        message: `Milestone reached! You unlocked ${unlockFeature}!`,
+		    });
+		});
+
 
 
         clicker_model.bus.addEventListener("REWARD", (ev) => {

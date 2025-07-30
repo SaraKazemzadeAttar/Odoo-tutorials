@@ -12,9 +12,10 @@ export class ClickerModel extends Reactive {
 		this.bigBots = 0;
 		this.bus = new EventBus();
 		this.milestones = [
-            { clicks: 1000, message: "Clickbots unlocked!" },
-            { clicks: 5000, message: "BigBots unlocked!" },
+            { clicks: 1000, unlock: "Clickbots" },
+            { clicks: 5000, unlock: "BigBots" },
 			{ clicks: 50000, unlock: "power multiplier" },
+			{ clicks: 1000000, unlock: "trees" }
         ];
 		this.bots = {
 		    clickbot: {
@@ -51,8 +52,8 @@ export class ClickerModel extends Reactive {
     checkMilestones() {
         const milestone = this.milestones[this.level];
         if (milestone && this.clicks >= milestone.clicks) {
-            this.bus.trigger("MILESTONE");
-            this.level += 1;
+            this.bus.trigger("MILESTONE", this.milestones[this.level]);
+			this.level += 1;
         }
     }
 
