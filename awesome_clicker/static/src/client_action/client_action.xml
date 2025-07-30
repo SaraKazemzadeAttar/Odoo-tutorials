@@ -73,13 +73,17 @@
 
 			<h2> Fruits </h2>
 			<div class="d-flex flex-row">
-				<t t-foreach="this.clicker.fruits" t-as="fruit" t-key="fruit">
-					<div class="card me-3">
-						<div class="card-header">
-							<t t-esc="fruit_value"/>x <t t-esc="fruit"/>
-						</div>
-					</div>
+				<t t-foreach="Object.entries(this.clicker.fruits)" t-as="fruitEntry" t-key="fruitEntry[0]">
+				    <t t-set="fruit" t-value="fruitEntry[0]"/>
+				    <t t-set="fruit_value" t-value="fruitEntry[1]"/>
+
+				    <div class="card me-3">
+				        <div class="card-header">
+				            <t t-esc="fruit_value"/>x <t t-esc="fruit"/>
+				        </div>
+				    </div>
 				</t>
+
 			</div>
 		</t>
 	</t>
