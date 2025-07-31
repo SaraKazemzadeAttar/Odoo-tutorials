@@ -12,10 +12,9 @@ export class GalleryImage extends Component {
 	setup(){
 		this.action = useService("action");
 	}
-	onImageClick() {
-	    this.action.switchView("form");  // switches current view to form view mode
+	onImageClick(resId){
+		this.action.switchView("form", { resId });
 	}
-
 
 	// Getter method to compute the image URL based on the record and model
 	get getimageUrl() {
