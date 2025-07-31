@@ -11,13 +11,15 @@ export class GalleryModel {
 		this.fields = fields;
 		this.tooltipField = tooltipField;
 		this.keeplast = new KeepLast();
+		this.pager = { offset: 0, limit: limit };
 	}
 
 
 	async load(domain) {
-		const {records} = await this.keeplast.add(
+		const { records , length } = await this.keeplast.add(
 			this.orm.webSearchRead(this.resModel, domain, {
-				limit: this.limit,
+				limit: this.pager.limit,
+				offset: this.pager.offset,
 				specification: { //Specifies which fields to return.
 					[this.imageField]: {},
 					...(this.tooltipField ? {[this.tooltipField]: {}} : {}),
@@ -27,7 +29,7 @@ export class GalleryModel {
 				}
 			})
 		);
-
+        this.recordsLength = length;
 		if (!this.tooltipField) {
 			this.records = records;
 			return;

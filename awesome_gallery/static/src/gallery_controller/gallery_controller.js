@@ -2,14 +2,15 @@ import {Component, onWillStart, onWillUpdateProps, useState} from "@odoo/owl";
 import {standardViewProps} from "@web/views/standard_view_props";
 import {Layout} from "@web/search/layout";
 import {useService} from "@web/core/utils/hooks";
+import { usePager } from "@web/search/pager_hook";
 
 export class GalleryController extends Component {
 	static template = "awesome_gallery.GalleryController";
 	static props = {
 		...standardViewProps,
 		archInfo: Object,
-		Model : Function,
-		Renderer : Function,
+		Model: Function,
+		Renderer: Function,
 	};
 	static components = {Layout};
 
@@ -23,6 +24,19 @@ export class GalleryController extends Component {
 				this.props.fields,
 			)
 		)
+
+		usePager(() => {
+		    return {
+		        offset: this.model.pager.offset,
+		        limit: this.model.pager.limit,
+		        total: this.model.recordsLength,
+		        onUpdate: async ({ offset, limit }) => {
+		            this.model.pager.offset = offset;
+		            this.model.pager.limit = limit;
+		            await this.model.load(this.props.domain);
+		        },
+		    };
+		});
 		onWillStart(async () => {
 			await this.model.load(this.props.domain);
 		});
