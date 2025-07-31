@@ -1,7 +1,8 @@
 <templates xml:space="preserve">
 	<t t-name="awesome_gallery.GalleryController">
 		<Layout display="props.display">
-			<GalleryRenderer model="model"/>
+			<!-- Render the dynamic Renderer component passed via props !-->
+			<t t-component="props.Renderer" model="model"/>
 		</Layout>
 	</t>
 </templates>
