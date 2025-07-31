@@ -1,6 +1,6 @@
 <templates xml:space="preserve">
 	<t t-name="awesome_gallery.GalleryController">
-		<Layout display="props.display">
+		<Layout display="props.display" className="'h-100 overflow-auto'">
 			<!-- Render the dynamic Renderer component passed via props !-->
 			<t t-component="props.Renderer" model="model"/>
 		</Layout>
