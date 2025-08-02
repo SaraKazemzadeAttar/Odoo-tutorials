@@ -1,0 +1,7 @@
+<templates xml:space="preserve">
+<t t-name="awesome_kanban.CustomerList">
+	<div>
+		Hello World
+	</div>
+</t>
+</templates>
