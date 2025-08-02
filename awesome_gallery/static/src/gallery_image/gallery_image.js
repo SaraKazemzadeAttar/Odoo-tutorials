@@ -1,8 +1,9 @@
 import {Component} from "@odoo/owl";
 import {GalleryModel} from "../gallery_model";
 import {url} from "@web/core/utils/urls";
-import { useService } from "@web/core/utils/hooks";
-import { FileUploader } from "@web/views/fields/file_handler";
+import {useService} from "@web/core/utils/hooks";
+import {FileUploader} from "@web/views/fields/file_handler";
+import {useTooltip} from "@web/core/tooltip/tooltip_hook";
 
 export class GalleryImage extends Component {
 	static template = "awesome_gallery.GalleryImage";
@@ -10,13 +11,26 @@ export class GalleryImage extends Component {
 		record: Object,
 		model: GalleryModel,
 		onImageUpload: Function,
+		tooltipTemplate: {
+			optional: true,
+			type: String,
+		},
 	};
-	static  components = { FileUploader }
-	setup(){
+	static components = {FileUploader}
+
+	setup() {
 		this.action = useService("action");
+		if (this.props.tooltipTemplate) {
+			useTooltip("tooltip", {
+				info: {record: this.props.record},
+				template: this.props.tooltipTemplate,
+			});
+		}
+
 	}
-	onImageClick(resId){
-		this.action.switchView("form", { resId });
+
+	onImageClick(resId) {
+		this.action.switchView("form", {resId});
 	}
 
 	// Getter method to compute the image URL based on the record and model
@@ -28,7 +42,8 @@ export class GalleryImage extends Component {
 			unique: this.props.record.write_date,
 		});
 	}
-    async _onFileUploaded({ data }){
-		await this.props.onImageUpload(this.props.record.id , data);
-    }
+
+	async _onFileUploaded({ data }) {
+		await this.props.onImageUpload(this.props.record.id, data);
+	}
 }
