@@ -2,7 +2,7 @@
 	<t t-name="awesome_gallery.GalleryController">
 		<Layout display="props.display" className="'h-100 overflow-auto'">
 			<!-- Render the dynamic Renderer component passed via props !-->
-			<t t-component="props.Renderer" model="model"/>
+			<t t-component="props.Renderer" model="model" onImageUpload.bind="onImageUpload"/>
 		</Layout>
 	</t>
 </templates>
