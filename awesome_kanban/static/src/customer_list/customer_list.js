@@ -15,40 +15,41 @@ export class CustomerList extends Component {
 		this.orm = useService("orm");
 		this.keepLast = new KeepLast();
 		this.partners = useState({data: []});
-		this.displayedPartners = useState({data: []});
-		this.filterName = ""; // for search bar
+		this.state = useState({
+            searchString: "",
+            displayActiveCustomers: false,
+        })
+
 		onWillStart(async () => {
 			this.partners.data = await this.loadCustomers([]);
 		})
 	}
 
-	async onChangeActiveCustomers(ev) {
-		const checked = ev.target.checked; //Gets whether the checkbox is on or off
-		const domain = checked ? [["opportunity_ids", "!=", false]] : [];
-		this.partners.data = await this.keepLast.add(this.loadCustomers(domain));
-		this.displayedPartners.data = this.partners.data;
-		this.filterCustomers(this.filterName);
+	get displayedPartners(){
+		return this.filterCustomers(this.state.searchString);
 	}
 
-	loadCustomers(domain) {
+
+	async onChangeActiveCustomers(ev) {
+		this.state.displayActiveCustomers = ev.target.checked;
+		this.partners.data = await this.keepLast.add(this.loadCustomers());
+	}
+
+	loadCustomers() {
+		const domain = this.state.displayActiveCustomers ? [["opportunity_ids", "!=", false]] : [];
 		return this.orm.searchRead("res.partner", domain, ["display_name"]);
 	}
 
-	// This function connects the user typing to the filtering logic.
-	onCustomerFilter(ev){
-		this.filterName = ev.target.value;
-        this.filterCustomers(ev.target.value);
-	}
 
 	filterCustomers(name) {
 		if (name) {
-			this.displayedPartners.data = fuzzyLookup(
+			return fuzzyLookup(
 				name,
 				this.partners.data,
 				(partner) => partner.display_name
 			);
 		} else {
-			this.displayedPartners.data = this.partners.data;
+			return this.partners.data;
 		}
 	}
 }
