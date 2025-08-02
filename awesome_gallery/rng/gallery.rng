@@ -18,3 +18,4 @@
 			<rng:ref name="gallery"/>
 		</rng:choice>
 	</rng:start>
+</rng:grammar>
